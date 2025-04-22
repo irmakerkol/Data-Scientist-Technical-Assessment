@@ -1,148 +1,119 @@
+# Papcorns Data Scientist Technical Assessment
 
-Data Scientist Technical Assessment
+## Description
 
-Welcome to the Papcorns Data Scientist Technical Assessment. This repository contains analysis of user behavior and monetization metrics, using a SQLite dataset and Python.
+This repository contains the analysis and results for the Papcorns Data Scientist Technical Assessment. We explore user behavior, trial conversions, subscription revenue, and lifetime value using a SQLite dataset and Python.
 
-📂 Repository Structure
+## Repository Structure
 
-├── papcorns.sqlite         # SQLite database with users and events
-├── analysis_notebook.ipynb # Jupyter notebook with SQL & Python analysis
+```
+papcorns-data-assessment/
+├── papcorns.sqlite         # SQLite database with users and events tables
+├── analysis_notebook.ipynb # Jupyter notebook with SQL & Python analysis workflow
+├── requirements.txt        # Python dependencies
 ├── Task1_revenue_by_country.png
 ├── Task3_acquisition_channel_distribution.png
 ├── Task4_conversion_rate_by_source.png
 ├── Task5_median_duration_by_country.png
 ├── Task6_ltv_by_country.png
-└── README.md               # This file
+└── README.md               # Project overview and instructions
+```
 
-🗒 Dataset Description
+## Prerequisites
 
-The SQLite database papcorns.sqlite contains two tables:
+- Python 3.7 or higher
+- Virtual environment tool (`venv` or `conda`)
+- `sqlite3` installed (for database connectivity)
 
-users
+## Installation
 
-id (integer): Unique user identifier
+1. Clone the repository:
+   ```bash
+   git clone <repo-url>
+   cd papcorns-data-assessment
+   ```
+2. Create a virtual environment and activate it:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate    # on Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-created_at (ISO timestamp): Account creation date
+## Data Schema
 
-attribution_source (text): Acquisition channel (tiktok, instagram, organic)
+### `users` table
 
-country (text): User country (US, TR, NL)
+| Column             | Type    | Description                       |
+|--------------------|---------|-----------------------------------|
+| `id`               | INTEGER | Unique user identifier            |
+| `created_at`       | TEXT    | Account creation timestamp (ISO)  |
+| `attribution_source` | TEXT  | Acquisition source (`tiktok`, `instagram`, `organic`) |
+| `country`          | TEXT    | User country (`US`, `TR`, `NL`)   |
+| `name`             | TEXT    | User’s name                       |
 
-name (text): User name
+### `user_events` table
 
-user_events
+| Column        | Type    | Description                                                      |
+|---------------|---------|------------------------------------------------------------------|
+| `id`          | INTEGER | Unique event identifier                                          |
+| `created_at`  | TEXT    | Event timestamp (ISO)                                            |
+| `user_id`     | INTEGER | Foreign key to `users.id`                                        |
+| `event_name`  | TEXT    | One of: `app_install`, `trial_started`, `trial_cancelled`, `subscription_started`, `subscription_renewed`, `subscription_cancelled` |
+| `amount_usd`  | NUMERIC | Transaction amount (for subscription events only)                |
 
-id (integer): Unique event identifier
+## Analysis Tasks
 
-created_at (ISO timestamp): Event timestamp
+1. **Total Subscription Revenue by Country**  
+   - Compute total revenue from `subscription_started` and `subscription_renewed` events, grouped by country.  
+   - Visualize with a bar chart.  
 
-user_id (integer): Foreign key to users.id
+2. **Total Trials from Instagram Users**  
+   - Count `trial_started` events for users acquired via Instagram.  
 
-event_name (text): One of app_install, trial_started, trial_cancelled, subscription_started, subscription_renewed, subscription_cancelled
+3. **Acquisition Channel Classification**  
+   - Add `acquisition_channel`: `Paid` for Instagram/TikTok, `Organic` otherwise.  
+   - Visualize distribution with a pie chart.  
 
-amount_usd (numeric): Transaction amount (only for subscription events)
+4. **Trial-to-Subscription Conversion Rates**  
+   - Calculate overall conversion (trial → subscription).  
+   - Break down by attribution source.  
+   - Visualize with a bar chart.  
 
-⚙️ Environment Setup
+5. **Median Subscription Duration by Country**  
+   - Measure subscription length (months) between start and cancel (or present).  
+   - Report median duration per country.  
 
-Clone the repository:
+6. **Average Lifetime Value (LTV) by Country**  
+   - Sum subscription revenue per user.  
+   - Compute country-level average LTV.  
 
-git clone <repo-url>
-cd papcorns-data-assessment
+## Key Findings
 
-Create and activate a Python environment:
+- **Revenue Leader**: US users generated the highest total subscription revenue.  
+- **Instagram Trials**: 210 trials initiated by Instagram-acquired users.  
+- **Acquisition Mix**: 65.7% Paid vs. 34.3% Organic users.  
+- **Conversion Rates**: Overall 70.5% trial-to-subscription conversion; organic users lead at 71.6%.  
+- **Subscription Duration**: Turkish users have the longest median duration (~2.83 months).  
+- **Lifetime Value**: US users highest average LTV (~$25.07).  
 
-python3 -m venv venv
-source venv/bin/activate
+## Visualizations
 
-Install requirements:
+See the `*.png` files for generated charts corresponding to each analysis task.
 
-pip install -r requirements.txt
+## Usage
 
-🚀 Getting Started
+1. Open and run `analysis_notebook.ipynb` in Jupyter Lab or Notebook.  
+2. Ensure `papcorns.sqlite` is in the same directory.  
+3. Follow sections and execute cells sequentially.  
 
-Open the Jupyter notebook analysis_notebook.ipynb and run the cells in order:
+## Contributing
 
-Imports & DB Connection: Connect to papcorns.sqlite using sqlite3.
+Contributions are welcome! Please open an issue or submit a pull request with improvements.
 
-Helper Functions:
+## License
 
-run_query(query): Execute SQL and return a pandas DataFrame.
+This project is provided under the MIT License. See the LICENSE file for details.
 
-check_unique_years(df, date_column): Summarize the date range and unique years.
-
-🧪 Core Analysis Tasks
-
-Total Subscription Revenue by Country
-
-SQL: SUM(amount_usd) for subscription_started and subscription_renewed grouped by country.
-
-Visualization: Bar chart of revenue per country.
-
-Total Trials from Instagram Users
-
-SQL: Count of trial_started events where attribution_source = 'instagram'.
-
-Acquisition Channel Classification
-
-Create a new column acquisition_channel: 'Paid' for instagram/tiktok, 'Organic' otherwise.
-
-Visualization: Pie chart of user counts by channel.
-
-Trial-to-Subscription Conversion Rates
-
-Overall: Ratio of users with both trial_started and subscription_started.
-
-By Source: Conversion rates broken down by attribution_source.
-
-Visualization: Bar chart of conversion rates.
-
-Median Subscription Duration by Country
-
-Compute time (in months) between subscription_started and subscription_cancelled (or current date if active).
-
-Median duration per country.
-
-Visualization: Bar chart of median durations.
-
-Average Lifetime Value (LTV) by Country
-
-For each user, sum all subscription_started and subscription_renewed amounts to get total revenue.
-
-Compute average by country.
-
-Visualization: Bar chart of average LTV.
-
-📈 Key Findings
-
-Revenue Leader: US users generated the highest total subscription revenue.
-
-Instagram Trials: 210 trials were started by Instagram-acquired users.
-
-Acquisition Mix: 65.7% of users are paid channels vs. 34.3% organic.
-
-Conversion Rates: Overall ~70.5% of trials convert, with organic users converting slightly better (71.6%).
-
-Subscription Duration: Turkish users stay subscribed longest (median ~2.83 months).
-
-LTV: US users have the highest average LTV (~$25.07).
-
-📊 Visualizations
-
-Refer to the generated PNG files for bar charts and pie charts:
-
-Task1_revenue_by_country.png
-
-Task3_acquisition_channel_distribution.png
-
-Task4_conversion_rate_by_source.png
-
-Task5_median_duration_by_country.png
-
-Task6_ltv_by_country.png
-
-🤝 Collaboration
-
-Feel free to open issues or pull requests for improvements. For questions, contact Irmak Erkol at irmakerkol00@gmail.com.
-5. Send us the link to your repository back to dev+interview@papcorns.com
-
-Good luck!
