@@ -1,6 +1,6 @@
 # Data Scientist Technical Assessment Report
 ## Introduction
-This report presents the findings and methodology used in the Papcorns Data Scientist Technical Assessment. The analysis was conducted using SQL and Python to extract insights from a SQLite database containing user and event data. The objective was to evaluate key business metrics including revenue, user acquisition, conversion, and customer lifetime value.
+This report presents the findings and methodology used in the Data Scientist Technical Assessment. The analysis was conducted using SQL and Python to extract insights from a SQLite database containing user and event data. The objective was to evaluate key business metrics including revenue, user acquisition, conversion, and customer lifetime value.
 
 ## Dataset Description
 The dataset consists of two tables: 'users' and 'user_events'. The 'users' table includes user information such as ID, country, attribution source, and account creation timestamp. The 'user_events' table records events performed by each user such as trials, subscriptions, and cancellations, along with any associated revenue.
