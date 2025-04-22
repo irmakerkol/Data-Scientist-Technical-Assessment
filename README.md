@@ -29,8 +29,7 @@ papcorns-data-assessment/
 
 1. Clone the repository:
    ```bash
-   git clone <repo-url>
-   cd papcorns-data-assessment
+   git clone https://github.com/irmakerkol/Data-Scientist-Technical-Assessment
    ```
 2. Create a virtual environment and activate it:
    ```bash
@@ -109,11 +108,4 @@ See the `*.png` files for generated charts corresponding to each analysis task.
 2. Ensure `papcorns.sqlite` is in the same directory.  
 3. Follow sections and execute cells sequentially.  
 
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request with improvements.
-
-## License
-
-This project is provided under the MIT License. See the LICENSE file for details.
 
