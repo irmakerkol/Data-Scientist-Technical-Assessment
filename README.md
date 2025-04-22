@@ -1,6 +1,6 @@
-# Papcorns Data Scientist Technical Assessment
+# Data Scientist Technical Assessment
 
-Welcome to Papcorns' Data Scientist technical assessment! This task is designed to evaluate your skills in data analysis, SQL, Python, and machine learning.
+Welcome to Data Scientist technical assessment! This task is designed to evaluate your skills in data analysis, SQL, Python, and machine learning.
 
 ## Dataset Description
 
