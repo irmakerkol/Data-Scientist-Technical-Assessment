@@ -1,13 +1,14 @@
-# Papcorns Data Scientist Technical Assessment
+# Data Scientist Technical Assessment
 
 ## Description
 
-This repository contains the analysis and results for the Papcorns Data Scientist Technical Assessment. We explore user behavior, trial conversions, subscription revenue, and lifetime value using a SQLite dataset and Python.
+This repository contains the analysis and results for the Data Scientist Technical Assessment. We explore user behavior, trial conversions, subscription revenue, and lifetime value using a SQLite dataset and Python.
 
 ## Repository Structure
 
 ```
-papcorns-data-assessment/
+Data-Scientist-Technical-Assessment
+/
 ├── papcorns.sqlite         # SQLite database with users and events tables
 ├── analysis_notebook.ipynb # Jupyter notebook with SQL & Python analysis workflow
 ├── requirements.txt        # Python dependencies
